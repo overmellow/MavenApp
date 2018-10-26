@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+  
+<struts>
+
+	<package name="notes" namespace="/notes" extends="struts-default">	
+		<interceptors>
+			<interceptor name="authInterceptor" class="com.wv.mfaraji.mystruts.mavenapp.interceptor.AuthInterceptor" />
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="authInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>		
+		</interceptors>
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+		
+		<global-results>
+			<result name="login" type="redirect">/auth/login</result>
+		</global-results>
+					                     
+     	<action name="all" class="com.wv.mfaraji.mystruts.mavenapp.action.NoteAction" method="getAllNotes">
+     		<result name="success">/notes.jsp</result>
+        </action>
+        
+        <action name="view">
+            <result>/note.jsp</result>
+        </action>
+        
+        <action name="create">
+            <result>/newNote.jsp</result>
+        </action>
+        
+        <action name="createNote" class="com.wv.mfaraji.mystruts.mavenapp.action.NoteAction" method="createNewNote">
+        	<result name="success" type="redirectAction">all</result>            
+        </action>        
+	</package>
+	
+</struts>  
